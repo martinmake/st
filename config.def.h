@@ -101,7 +101,7 @@ const int boxdraw_braille = 1;
 static int bellvolume = 100;
 
 /* default TERM value */
-char *termname = "st-256color";
+char *termname = "xterm-256color";
 
 /*
  * spaces per tab
@@ -166,13 +166,49 @@ unsigned int selectionfg = 0;
 static int ignoreselfg = 0;
 
 /*
+ * Xresources preferences to load at startup
+ */
+ResourcePref resources[] = {
+		{ "font",         STRING,  &font },
+		{ "color0",       STRING,  &colorname[0] },
+		{ "color1",       STRING,  &colorname[1] },
+		{ "color2",       STRING,  &colorname[2] },
+		{ "color3",       STRING,  &colorname[3] },
+		{ "color4",       STRING,  &colorname[4] },
+		{ "color5",       STRING,  &colorname[5] },
+		{ "color6",       STRING,  &colorname[6] },
+		{ "color7",       STRING,  &colorname[7] },
+		{ "color8",       STRING,  &colorname[8] },
+		{ "color9",       STRING,  &colorname[9] },
+		{ "color10",      STRING,  &colorname[10] },
+		{ "color11",      STRING,  &colorname[11] },
+		{ "color12",      STRING,  &colorname[12] },
+		{ "color13",      STRING,  &colorname[13] },
+		{ "color14",      STRING,  &colorname[14] },
+		{ "color15",      STRING,  &colorname[15] },
+		{ "background",   STRING,  &colorname[256] },
+		{ "foreground",   STRING,  &colorname[257] },
+		{ "cursorColor",  STRING,  &colorname[258] },
+		{ "termname",     STRING,  &termname },
+		{ "shell",        STRING,  &shell },
+		{ "minlatency",   INTEGER, &minlatency },
+		{ "maxlatency",   INTEGER, &maxlatency },
+		{ "blinktimeout", INTEGER, &blinktimeout },
+		{ "bellvolume",   INTEGER, &bellvolume },
+		{ "tabspaces",    INTEGER, &tabspaces },
+		{ "borderpx",     INTEGER, &borderpx },
+		{ "cwscale",      FLOAT,   &cwscale },
+		{ "chscale",      FLOAT,   &chscale },
+};
+
+/*
  * Default shape of cursor
  * 2: Block ("█")
  * 4: Underline ("_")
  * 6: Bar ("|")
  * 7: Snowman ("☃")
  */
-static unsigned int cursorshape = 6;
+static unsigned int cursorshape = 2;
 
 /*
  * Default columns and rows numbers
@@ -236,7 +272,7 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
 	{ MODKEY,               XK_y,           clipcopy,       {.i =  0} },
 	{ MODKEY,               XK_p,           clippaste,      {.i =  0} },
-	{ MODKEY,               XK_Escape,      keyboard_select,{.i =  0} },
+// 	{ MODKEY,               XK_Escape,      keyboard_select,{.i =  0} },
 	{ TERMMOD,              XK_X,           invert,         { }       },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
 	{ XK_ANY_MOD,           XK_Page_Up,     kscrollup,      {.i = -1} },
@@ -763,7 +799,7 @@ static Key key[] = {
 	{ XK_Return,       Mod1Mask|ControlMask,           "\033[13;7u",  0,  0},
 	{ XK_Return,       Mod1Mask|ControlMask|ShiftMask, "\033[13;8u",  0,  0},
 	{ XK_Return,       Mod1Mask|ShiftMask,             "\033[13;4u",  0,  0},
-	{ XK_Return,       ShiftMask,                      "\033[13;2u",  0,  0},
+// 	{ XK_Return,       ShiftMask,                      "\033[13;2u",  0,  0}, // weird in shell
 	{ XK_Pause,        ControlMask,                    "\033[18;5u",  0,  0},
 	{ XK_Pause,        ControlMask|ShiftMask,          "\033[18;6u",  0,  0},
 	{ XK_Pause,        Mod1Mask,                       "\033[18;3u",  0,  0},
@@ -780,7 +816,7 @@ static Key key[] = {
 	{ XK_Scroll_Lock,  ShiftMask,                      "\033[20;2u",  0,  0},
 	{ XK_Escape,       ControlMask,                    "\033[27;5u",  0,  0},
 	{ XK_Escape,       ControlMask|ShiftMask,          "\033[27;6u",  0,  0},
-	{ XK_Escape,       Mod1Mask,                       "\033[27;3u",  0,  0},
+// 	{ XK_Escape,       Mod1Mask,                       "\033[27;3u",  0,  0},
 	{ XK_Escape,       Mod1Mask|ControlMask,           "\033[27;7u",  0,  0},
 	{ XK_Escape,       Mod1Mask|ControlMask|ShiftMask, "\033[27;8u",  0,  0},
 	{ XK_Escape,       Mod1Mask|ShiftMask,             "\033[27;4u",  0,  0},
@@ -847,7 +883,7 @@ static Key key[] = {
 	{ XK_space,        Mod1Mask|ControlMask,           "\033[32;7u",  0,  0},
 	{ XK_space,        Mod1Mask|ControlMask|ShiftMask, "\033[32;8u",  0,  0},
 	{ XK_space,        Mod1Mask|ShiftMask,             "\033[32;4u",  0,  0},
-	{ XK_space,        ShiftMask,                      "\033[32;2u",  0,  0},
+// 	{ XK_space,        ShiftMask,                      "\033[32;2u",  0,  0}, // weird in shell
 	{ XK_0,            ControlMask,                    "\033[48;5u",  0,  0},
 	{ XK_A,            ControlMask|ShiftMask,          "\033[65;6u",  0,  0},
 	{ XK_B,            ControlMask|ShiftMask,          "\033[66;6u",  0,  0},
