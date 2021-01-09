@@ -62,7 +62,7 @@ int allowwindowops = 1;
  * near minlatency, but it waits longer for slow updates to avoid partial draw.
  * low minlatency will tear/flicker more, as it can "detect" idle too early.
  */
-static double minlatency = 8;
+static double minlatency =  8;
 static double maxlatency = 33;
 
 /*
@@ -88,7 +88,7 @@ static unsigned int cursorthickness = 1;
  *    Bold affects lines thickness if boxdraw_bold is not 0. Italic is ignored.
  * 0: disable (render all U25XX glyphs normally from the font).
  */
-const int boxdraw = 1;
+const int boxdraw      = 1;
 const int boxdraw_bold = 1;
 
 /* braille (U28XX):  1: render as adjacent "pixels",  0: use font */
@@ -153,9 +153,9 @@ static const char *colorname[] = {
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 15;
-unsigned int defaultbg = 0;
-unsigned int defaultcs = 11;
+unsigned int defaultfg  = 15;
+unsigned int defaultbg  =  0;
+unsigned int defaultcs  = 11;
 unsigned int defaultrcs = 11;
 
 /* Colors used for selection */
@@ -169,36 +169,36 @@ static int ignoreselfg = 0;
  * Xresources preferences to load at startup
  */
 ResourcePref resources[] = {
-		{ "font",         STRING,  &font },
-		{ "color0",       STRING,  &colorname[0] },
-		{ "color1",       STRING,  &colorname[1] },
-		{ "color2",       STRING,  &colorname[2] },
-		{ "color3",       STRING,  &colorname[3] },
-		{ "color4",       STRING,  &colorname[4] },
-		{ "color5",       STRING,  &colorname[5] },
-		{ "color6",       STRING,  &colorname[6] },
-		{ "color7",       STRING,  &colorname[7] },
-		{ "color8",       STRING,  &colorname[8] },
-		{ "color9",       STRING,  &colorname[9] },
-		{ "color10",      STRING,  &colorname[10] },
-		{ "color11",      STRING,  &colorname[11] },
-		{ "color12",      STRING,  &colorname[12] },
-		{ "color13",      STRING,  &colorname[13] },
-		{ "color14",      STRING,  &colorname[14] },
-		{ "color15",      STRING,  &colorname[15] },
-		{ "background",   STRING,  &colorname[256] },
-		{ "foreground",   STRING,  &colorname[257] },
-		{ "cursorColor",  STRING,  &colorname[258] },
-		{ "termname",     STRING,  &termname },
-		{ "shell",        STRING,  &shell },
-		{ "minlatency",   INTEGER, &minlatency },
-		{ "maxlatency",   INTEGER, &maxlatency },
-		{ "blinktimeout", INTEGER, &blinktimeout },
-		{ "bellvolume",   INTEGER, &bellvolume },
-		{ "tabspaces",    INTEGER, &tabspaces },
-		{ "borderpx",     INTEGER, &borderpx },
-		{ "cwscale",      FLOAT,   &cwscale },
-		{ "chscale",      FLOAT,   &chscale },
+	{ "font"         , STRING  , &font           },
+	{ "color0"       , STRING  , &colorname[0  ] },
+	{ "color1"       , STRING  , &colorname[1  ] },
+	{ "color2"       , STRING  , &colorname[2  ] },
+	{ "color3"       , STRING  , &colorname[3  ] },
+	{ "color4"       , STRING  , &colorname[4  ] },
+	{ "color5"       , STRING  , &colorname[5  ] },
+	{ "color6"       , STRING  , &colorname[6  ] },
+	{ "color7"       , STRING  , &colorname[7  ] },
+	{ "color8"       , STRING  , &colorname[8  ] },
+	{ "color9"       , STRING  , &colorname[9  ] },
+	{ "color10"      , STRING  , &colorname[10 ] },
+	{ "color11"      , STRING  , &colorname[11 ] },
+	{ "color12"      , STRING  , &colorname[12 ] },
+	{ "color13"      , STRING  , &colorname[13 ] },
+	{ "color14"      , STRING  , &colorname[14 ] },
+	{ "color15"      , STRING  , &colorname[15 ] },
+	{ "background"   , STRING  , &colorname[256] },
+	{ "foreground"   , STRING  , &colorname[257] },
+	{ "cursorColor"  , STRING  , &colorname[258] },
+	{ "termname"     , STRING  , &termname       },
+	{ "shell"        , STRING  , &shell          },
+	{ "minlatency"   , INTEGER , &minlatency     },
+	{ "maxlatency"   , INTEGER , &maxlatency     },
+	{ "blinktimeout" , INTEGER , &blinktimeout   },
+	{ "bellvolume"   , INTEGER , &bellvolume     },
+	{ "tabspaces"    , INTEGER , &tabspaces      },
+	{ "borderpx"     , INTEGER , &borderpx       },
+	{ "cwscale"      , FLOAT   , &cwscale        },
+	{ "chscale"      , FLOAT   , &chscale        },
 };
 
 /*
@@ -249,37 +249,37 @@ static char *copyoutput[] = { "/bin/sh", "-c", "st-copyout", "externalpipe", NUL
  * Beware that overloading Button1 will disable the selection.
  */
 static MouseShortcut mshortcuts[] = {
-	/* mask                 button   function        argument       release */
-	{ XK_ANY_MOD,           Button3, selpaste,       {.i = 0},      1 },
-	{ XK_NO_MOD,            Button4, kscrollup,      {.i =   1}, 0, -1 },
-	{ XK_NO_MOD,            Button5, kscrolldown,    {.i =   1}, 0, -1 },
-	{ ShiftMask,            Button4, kscrollup,      {.i = -10}, 0, -1 },
-	{ ShiftMask,            Button5, kscrolldown,    {.i = -10}, 0, -1 },
-	{ ControlMask,          Button4, zoom,           {.f = +0.5} },
-	{ ControlMask,          Button5, zoom,           {.f = -0.5} },
+// 	  mask          button    function      argument     release
+	{ XK_ANY_MOD  , Button3 , selpaste    , {.i =   0  }  , 1      },
+	{ XK_NO_MOD   , Button4 , kscrollup   , {.i =   1  }  , 0 , -1 },
+	{ XK_NO_MOD   , Button5 , kscrolldown , {.i =   1  }  , 0 , -1 },
+	{ ShiftMask   , Button4 , kscrollup   , {.i = -10  }  , 0 , -1 },
+	{ ShiftMask   , Button5 , kscrolldown , {.i = -10  }  , 0 , -1 },
+	{ ControlMask , Button4 , zoom        , {.f =  +0.5}           },
+	{ ControlMask , Button5 , zoom        , {.f =  -0.5}           },
 };
 
 static Shortcut shortcuts[] = {
-	/* mask                 keysym          function        argument */
-	{ XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },
-	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
-	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
-	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ TERMMOD,              XK_K,           zoom,           {.f = +1} },
-	{ TERMMOD,              XK_J,           zoom,           {.f = -1} },
-	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
-	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
-	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
-	{ MODKEY,               XK_y,           clipcopy,       {.i =  0} },
-	{ MODKEY,               XK_p,           clippaste,      {.i =  0} },
-// 	{ MODKEY,               XK_Escape,      keyboard_select,{.i =  0} },
-	{ TERMMOD,              XK_X,           invert,         { }       },
-	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ XK_ANY_MOD,           XK_Page_Up,     kscrollup,      {.i = -1} },
-	{ XK_ANY_MOD,           XK_Page_Down,   kscrolldown,    {.i = -1} },
-	{ TERMMOD,              XK_L,           copyurl,        {.i =  0} },
-	{ TERMMOD,              XK_O,           externalpipe,   {.v = copyoutput } },
-// 	{ TERMMOD,              XK_I,           iso14755,       {.s = ISO14755CMD} },
+// 	  mask          keysym         function          argument
+	{ XK_ANY_MOD  , XK_Break     , sendbreak       , {.i =  0}          },
+	{ ControlMask , XK_Print     , toggleprinter   , {.i =  0}          },
+	{ ShiftMask   , XK_Print     , printscreen     , {.i =  0}          },
+	{ XK_ANY_MOD  , XK_Print     , printsel        , {.i =  0}          },
+	{ TERMMOD     , XK_K         , zoom            , {.f = +1}          },
+	{ TERMMOD     , XK_J         , zoom            , {.f = -1}          },
+	{ TERMMOD     , XK_Home      , zoomreset       , {.f =  0}          },
+	{ TERMMOD     , XK_C         , clipcopy        , {.i =  0}          },
+	{ TERMMOD     , XK_V         , clippaste       , {.i =  0}          },
+	{ MODKEY      , XK_y         , clipcopy        , {.i =  0}          },
+	{ MODKEY      , XK_p         , clippaste       , {.i =  0}          },
+// 	{ MODKEY      , XK_Escape    , keyboard_select , {.i =  0}          },
+	{ TERMMOD     , XK_X         , invert          , {}                 },
+	{ TERMMOD     , XK_Num_Lock  , numlock         , {.i =  0}          },
+	{ XK_ANY_MOD  , XK_Page_Up   , kscrollup       , {.i = -1}          },
+	{ XK_ANY_MOD  , XK_Page_Down , kscrolldown     , {.i = -1}          },
+	{ TERMMOD     , XK_L         , copyurl         , {.i =  0}          },
+	{ TERMMOD     , XK_O         , externalpipe    , {.v = copyoutput } },
+// 	{ TERMMOD     , XK_I         , iso14755        , {.s = ISO14755CMD} },
 };
 
 
@@ -799,7 +799,7 @@ static Key key[] = {
 	{ XK_Return,       Mod1Mask|ControlMask,           "\033[13;7u",  0,  0},
 	{ XK_Return,       Mod1Mask|ControlMask|ShiftMask, "\033[13;8u",  0,  0},
 	{ XK_Return,       Mod1Mask|ShiftMask,             "\033[13;4u",  0,  0},
-// 	{ XK_Return,       ShiftMask,                      "\033[13;2u",  0,  0}, // weird in shell
+	{ XK_Return,       ShiftMask,                      "\033[13;2u",  0,  0},
 	{ XK_Pause,        ControlMask,                    "\033[18;5u",  0,  0},
 	{ XK_Pause,        ControlMask|ShiftMask,          "\033[18;6u",  0,  0},
 	{ XK_Pause,        Mod1Mask,                       "\033[18;3u",  0,  0},
@@ -816,7 +816,7 @@ static Key key[] = {
 	{ XK_Scroll_Lock,  ShiftMask,                      "\033[20;2u",  0,  0},
 	{ XK_Escape,       ControlMask,                    "\033[27;5u",  0,  0},
 	{ XK_Escape,       ControlMask|ShiftMask,          "\033[27;6u",  0,  0},
-// 	{ XK_Escape,       Mod1Mask,                       "\033[27;3u",  0,  0},
+	// { XK_Escape,       Mod1Mask,                       "\033[27;3u",  0,  0},
 	{ XK_Escape,       Mod1Mask|ControlMask,           "\033[27;7u",  0,  0},
 	{ XK_Escape,       Mod1Mask|ControlMask|ShiftMask, "\033[27;8u",  0,  0},
 	{ XK_Escape,       Mod1Mask|ShiftMask,             "\033[27;4u",  0,  0},
@@ -883,7 +883,7 @@ static Key key[] = {
 	{ XK_space,        Mod1Mask|ControlMask,           "\033[32;7u",  0,  0},
 	{ XK_space,        Mod1Mask|ControlMask|ShiftMask, "\033[32;8u",  0,  0},
 	{ XK_space,        Mod1Mask|ShiftMask,             "\033[32;4u",  0,  0},
-// 	{ XK_space,        ShiftMask,                      "\033[32;2u",  0,  0}, // weird in shell
+	{ XK_space,        ShiftMask,                      "\033[32;2u",  0,  0},
 	{ XK_0,            ControlMask,                    "\033[48;5u",  0,  0},
 	{ XK_A,            ControlMask|ShiftMask,          "\033[65;6u",  0,  0},
 	{ XK_B,            ControlMask|ShiftMask,          "\033[66;6u",  0,  0},
